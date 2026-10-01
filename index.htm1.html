@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eman Store — أدوات طب الأسنان</title>
+<style>
+:root{
+  --ink:#172033; --muted:#6b7280; --bg:#f7f9fc; --card:#fff;
+  --accent:#5b2cff; --accent2:#7c5cff; --line:#e8ebf2; --good:#159a73;
+}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,"Tahoma",sans-serif;background:var(--bg);color:var(--ink)}
+button,input{font:inherit} button{cursor:pointer}
+.top{background:#17132b;color:#fff;text-align:center;padding:9px;font-size:13px}
+nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.navin{max-width:1180px;margin:auto;padding:16px 20px;display:flex;align-items:center;gap:25px}
+.logo{font-size:25px;font-weight:900;color:var(--accent);white-space:nowrap}.logo span{color:#172033}
+.links{display:flex;gap:22px;flex:1}.links a{text-decoration:none;color:#4b5563;font-size:14px}.links a:hover{color:var(--accent)}
+.search{display:flex;background:#f2f4f8;border-radius:14px;padding:4px 10px;min-width:220px}.search input{border:0;background:transparent;outline:0;width:100%;padding:8px}.cart{position:relative;border:0;background:#f0edff;color:var(--accent);border-radius:13px;padding:11px 14px;font-weight:bold}.badge{position:absolute;top:-6px;left:-6px;background:#ef4444;color:#fff;width:21px;height:21px;border-radius:50%;font-size:12px;display:grid;place-items:center}
+.hero{max-width:1180px;margin:30px auto;padding:0 20px}.heroBox{border-radius:30px;padding:48px;min-height:350px;background:linear-gradient(135deg,#efeaff,#f9fbff 58%,#e6f7f2);display:flex;align-items:center;justify-content:space-between;overflow:hidden}
+.heroText{max-width:620px}.eyebrow{color:var(--accent);font-weight:800;margin-bottom:12px}.hero h1{font-size:48px;line-height:1.12;margin:0 0 18px}.hero p{color:var(--muted);font-size:17px;line-height:1.8}.cta{border:0;background:var(--accent);color:#fff;padding:14px 24px;border-radius:14px;font-weight:800;box-shadow:0 10px 25px #5b2cff25}.heroIcon{font-size:145px;filter:drop-shadow(0 15px 25px #5b2cdd25)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 55px}.sectionHead{display:flex;justify-content:space-between;align-items:end;margin:34px 0 18px}.sectionHead h2{margin:0;font-size:26px}.sectionHead p{margin:5px 0 0;color:var(--muted)}
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.cat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;text-align:center;transition:.2s}.cat:hover{transform:translateY(-3px);box-shadow:0 10px 25px #17203310}.cat .ico{font-size:35px}.cat b{display:block;margin-top:9px}.cat small{color:var(--muted)}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.product{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}.pic{height:180px;background:linear-gradient(145deg,#f0edff,#f5f7fb);display:grid;place-items:center;font-size:72px}.info{padding:15px}.tag{display:inline-block;font-size:11px;background:#eeeafe;color:var(--accent);padding:5px 8px;border-radius:20px;margin-bottom:8px}.product h3{font-size:16px;margin:4px 0 8px}.desc{font-size:12px;color:var(--muted);min-height:34px}.price{font-weight:900;font-size:18px;margin:12px 0}.add{width:100%;border:0;background:#f0edff;color:var(--accent);padding:11px;border-radius:12px;font-weight:800}.add:hover{background:var(--accent);color:#fff}
+.banner{margin-top:38px;background:#172033;color:#fff;border-radius:24px;padding:28px;display:flex;justify-content:space-between;align-items:center}.banner h3{margin:0 0 7px;font-size:23px}.banner p{margin:0;color:#cbd1df}.banner button{background:#fff;color:#172033;border:0;border-radius:12px;padding:12px 18px;font-weight:800}
+footer{background:#111827;color:#dbe2ef;padding:35px 20px}.foot{max-width:1180px;margin:auto;display:flex;justify-content:space-between;gap:30px}.foot b{color:#fff;font-size:20px}.foot p{color:#9ca8ba;font-size:13px;line-height:1.8}
+.drawer{position:fixed;inset:0;background:#0007;display:none;z-index:50}.drawer.open{display:block}.panel{position:absolute;right:0;top:0;height:100%;width:min(430px,92vw);background:#fff;padding:22px;overflow:auto}.panelHead{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#f2f4f8;border-radius:10px;padding:8px 12px}.cartItem{display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--line);padding:14px 0}.mini{width:55px;height:55px;border-radius:12px;background:#f0edff;display:grid;place-items:center;font-size:27px}.ci{flex:1}.ci b{display:block;font-size:14px}.ci small{color:var(--muted)}.qty{display:flex;align-items:center;gap:8px}.qty button{border:0;background:#f2f4f8;border-radius:8px;width:27px;height:27px}.total{display:flex;justify-content:space-between;font-weight:900;font-size:20px;padding:20px 0}.checkout{width:100%;border:0;background:var(--good);color:#fff;padding:14px;border-radius:13px;font-weight:900}
+.empty{text-align:center;color:var(--muted);padding:60px 10px}
+@media(max-width:900px){.links{display:none}.products{grid-template-columns:repeat(2,1fr)}.cats{grid-template-columns:repeat(2,1fr)}.heroBox{padding:32px}.hero h1{font-size:37px}.heroIcon{font-size:90px}}
+@media(max-width:560px){.navin{gap:10px}.search{min-width:0;flex:1}.heroBox{min-height:0}.heroIcon{display:none}.hero h1{font-size:31px}.products{grid-template-columns:1fr 1fr;gap:10px}.pic{height:130px;font-size:50px}.sectionHead h2{font-size:21px}.banner{display:block}.banner button{margin-top:15px}.foot{display:block}}
+</style>
+</head>
+<body>
+<div class="top">🚚 شحن سريع داخل مصر • خصم 10% على أول طلب</div>
+
+<nav>
+  <div class="navin">
+    <div class="logo">Eman<span> Store</span> 🦷</div>
+    <div class="links">
+      <a href="#home">الرئيسية</a><a href="#categories">الأقسام</a><a href="#products">المنتجات</a><a href="#contact">تواصل معنا</a>
+    </div>
+    <div class="search"><span>⌕</span><input id="search" placeholder="ابحثي عن أداة..." oninput="renderProducts()"></div>
+    <button class="cart" onclick="toggleCart()">🛒 <span class="badge" id="count">0</span></button>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="heroBox">
+    <div class="heroText">
+      <div class="eyebrow">EMAN STORE • YOUR DENTAL ESSENTIALS</div>
+      <h1>كل أدوات طب الأسنان<br>في مكان واحد 🦷</h1>
+      <p>أدوات، مستلزمات وباكدجات لطلاب وأطباء الأسنان — بشكل بسيط وسهل للطلب.</p>
+      <button class="cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">تصفحي المنتجات</button>
+    </div>
+    <div class="heroIcon">🦷</div>
+  </div>
+</section>
+
+<main class="wrap">
+  <section id="categories">
+    <div class="sectionHead"><div><h2>تصفحي الأقسام</h2><p>اختاري القسم اللي محتاجاه بسرعة</p></div></div>
+    <div class="cats">
+      <div class="cat" onclick="filterCat('Instruments')"><div class="ico">🦷</div><b>Dental Instruments</b><small>أدوات الأسنان</small></div>
+      <div class="cat" onclick="filterCat('Consumables')"><div class="ico">🧤</div><b>Consumables</b><small>مستلزمات</small></div>
+      <div class="cat" onclick="filterCat('Students')"><div class="ico">🎓</div><b>Student Kits</b><small>باكدجات الطلاب</small></div>
+      <div class="cat" onclick="filterCat('Accessories')"><div class="ico">🧰</div><b>Accessories</b><small>إكسسوارات</small></div>
+    </div>
+  </section>
+
+  <section id="products">
+    <div class="sectionHead"><div><h2>منتجات مختارة</h2><p id="resultText">منتجات تجريبية — هنبدلها بمنتجاتك الحقيقية</p></div></div>
+    <div class="products" id="productGrid"></div>
+  </section>
+
+  <div class="banner">
+    <div><h3>🎓 باكدجات طلاب الأسنان</h3><p>جهزي أدواتك الأساسية في باكدج واحد بدل اللف على كذا مكان.</p></div>
+    <button onclick="filterCat('Students')">شوفي الباكدجات</button>
+  </div>
+</main>
+
+<footer id="contact">
+  <div class="foot">
+    <div><b>E&amp;M Dental 🦷</b><p>أدوات ومستلزمات طب الأسنان — من E&amp;M Dental.</p></div>
+    <div><b>إدارة الطلبات</b><p>كل طلب يحصل على رقم طلب خاص.<br>النسخة الحالية Front-end تجريبية؛ الربط الحقيقي بالإشعارات يحتاج استضافة وقاعدة بيانات.</p></div>
+  </div>
+</footer>
+
+<div class="drawer" id="drawer" onclick="if(event.target===this)toggleCart()">
+  <aside class="panel">
+    <div class="panelHead"><h2>سلة المشتريات 🛒</h2><button class="close" onclick="toggleCart()">إغلاق</button></div>
+    <div id="cartItems"></div>
+    <div class="total"><span>الإجمالي</span><span id="total">0 ج.م</span></div>
+    <button class="checkout" onclick="checkout()">إتمام الطلب</button>
+  </aside>
+</div>
+
+<script>
+const products=[
+ {id:1,name:"Dental Mirror Set",cat:"Instruments",price:180,icon:"🪞",tag:"أدوات"},
+ {id:2,name:"College Tweezers",cat:"Instruments",price:95,icon:"🔧",tag:"أدوات"},
+ {id:3,name:"Explorer Probe",cat:"Instruments",price:120,icon:"🦷",tag:"أدوات"},
+ {id:4,name:"Student Basic Kit",cat:"Students",price:850,icon:"🎓",tag:"باكدج"},
+ {id:5,name:"Disposable Gloves",cat:"Consumables",price:140,icon:"🧤",tag:"مستلزمات"},
+ {id:6,name:"Dental Burs Box",cat:"Consumables",price:320,icon:"⚙️",tag:"مستلزمات"},
+ {id:7,name:"Instrument Cassette",cat:"Accessories",price:450,icon:"🧰",tag:"إكسسوار"},
+ {id:8,name:"Alginate Mixing Bowl",cat:"Accessories",price:110,icon:"🥣",tag:"إكسسوار"}
+];
+let cart=[], activeCat="All";
+const egp=n=>n.toLocaleString("en-US")+" ج.م";
+
+function renderProducts(){
+ const q=document.getElementById("search").value.trim().toLowerCase();
+ const list=products.filter(p=>(activeCat==="All"||p.cat===activeCat)&&p.name.toLowerCase().includes(q));
+ document.getElementById("productGrid").innerHTML=list.length?list.map(p=>`
+ <article class="product">
+  <div class="pic">${p.icon}</div><div class="info">
+   <span class="tag">${p.tag}</span><h3>${p.name}</h3><div class="desc">منتج تجريبي قابل للتعديل والوصف حسب المنتج الحقيقي.</div>
+   <div class="price">${egp(p.price)}</div><button class="add" onclick="add(${p.id})">+ أضيفي للسلة</button>
+  </div>
+ </article>`).join(""):`<div class="empty" style="grid-column:1/-1">مفيش منتجات مطابقة للبحث 😅</div>`;
+ document.getElementById("resultText").textContent=activeCat==="All"?"منتجات تجريبية — هنبدلها بمنتجاتك الحقيقية":"القسم المختار: "+activeCat;
+}
+function filterCat(cat){activeCat=cat;document.getElementById("products").scrollIntoView({behavior:"smooth"});renderProducts()}
+function add(id){const x=cart.find(i=>i.id===id);x?x.qty++:cart.push({id,qty:1});renderCart()}
+function change(id,d){const x=cart.find(i=>i.id===id);if(!x)return;x.qty+=d;if(x.qty<=0)cart=cart.filter(i=>i.id!==id);renderCart()}
+function renderCart(){
+ document.getElementById("count").textContent=cart.reduce((a,x)=>a+x.qty,0);
+ const box=document.getElementById("cartItems");
+ if(!cart.length){box.innerHTML='<div class="empty">السلة فاضية حاليًا 🛒</div>';document.getElementById("total").textContent="0 ج.م";return}
+ let total=0;
+ box.innerHTML=cart.map(x=>{const p=products.find(y=>y.id===x.id);total+=p.price*x.qty;return`
+ <div class="cartItem"><div class="mini">${p.icon}</div><div class="ci"><b>${p.name}</b><small>${egp(p.price)}</small></div>
+ <div class="qty"><button onclick="change(${p.id},-1)">−</button><b>${x.qty}</b><button onclick="change(${p.id},1)">+</button></div></div>`}).join("");
+ document.getElementById("total").textContent=egp(total);
+}
+function toggleCart(){document.getElementById("drawer").classList.toggle("open");renderCart()}
+function checkout(){
+ if(!cart.length){ alert("السلة فاضية!"); return; }
+ const old = document.getElementById("orderForm");
+ if(old) old.remove();
+ const panel = document.querySelector(".panel");
+ const form = document.createElement("div");
+ form.id = "orderForm";
+ form.innerHTML = `
+   <div style="margin-top:20px;padding-top:18px;border-top:1px solid var(--line)">
+     <h3>بيانات الطلب 📦</h3>
+     <input id="custName" placeholder="الاسم" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0">
+     <input id="custPhone" placeholder="رقم الموبايل" type="tel" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0">
+     <textarea id="custAddress" placeholder="العنوان بالتفصيل" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0;min-height:85px"></textarea>
+     <select id="payment" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:6px 0">
+       <option>الدفع عند الاستلام</option>
+       <option>تحويل بنكي / محفظة</option>
+     </select>
+     <button class="checkout" onclick="submitOrder()">تأكيد الطلب</button>
+   </div>`;
+ panel.appendChild(form);
+ form.scrollIntoView({behavior:"smooth"});
+}
+function submitOrder(){
+ const name=document.getElementById("custName").value.trim();
+ const phone=document.getElementById("custPhone").value.trim();
+ const address=document.getElementById("custAddress").value.trim();
+ if(!name||!phone||!address){alert("من فضلك اكتبي الاسم ورقم الموبايل والعنوان.");return;}
+ const orderNo = "EM-" + Math.floor(1000+Math.random()*9000);
+ const items = cart.map(x=>{const p=products.find(y=>y.id===x.id);return `${p.name} × ${x.qty}`;}).join("\n");
+ const total = cart.reduce((s,x)=>s+products.find(y=>y.id===x.id).price*x.qty,0);
+ alert(`تم تسجيل الطلب بنجاح ❤️\n\nرقم الطلب: ${orderNo}\nالعميل: ${name}\nالإجمالي: ${egp(total)}\n\nفي النسخة المتصلة بالخادم، بيانات الطلب دي هتظهر في لوحة تحكم المتجر وتوصلك كإشعار.`);
+ cart=[]; renderCart();
+ const form=document.getElementById("orderForm"); if(form) form.remove();
+}
+renderProducts();renderCart();
+</script>
+</body>
+</html>
